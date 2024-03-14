@@ -1,0 +1,2 @@
+# cria a imagem a partir da versão Alpine do Redis
+FROM "redis:alpine"
