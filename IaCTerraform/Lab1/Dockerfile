@@ -21,7 +21,7 @@ RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform
 RUN mkdir /lab1
 
 # copiar o arquivo main.tf para a pasta lab1
-# COPY main.tf /lab1/
+COPY main.tf /lab1/
 
 # criar a pasta downloads e instalar o AWS CLI
 RUN mkdir /downloads && \
