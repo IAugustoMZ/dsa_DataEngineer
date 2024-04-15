@@ -28,4 +28,5 @@ The first course of the Data Engineer formation includes the automation procedur
 - **Laboratory 1** - Provision of Amazon EC2 instance using Terraform
 - **Laboratory 2** - Provision of Amazon EC2 instance using Terraform using:
     - *Entry variables* - definition of a variable plan to hold all necessary variables for the infrastructure
-    - *Terraform Plan* - creation of the infrastructure plan, and saving it into a file 
+    - *Terraform Plan* - creation of the infrastructure plan, and saving it into a file
+    - *Mutiple Subnets* - provision of multiple EC2 instances in different subnets
