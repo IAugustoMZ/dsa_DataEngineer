@@ -31,4 +31,6 @@ The first course of the Data Engineer formation includes the automation procedur
     - *Terraform Plan* - creation of the infrastructure plan, and saving it into a file
     - *Mutiple Subnets* - provision of multiple EC2 instances in different subnets
     - *Concept of Modules* - presentation of modularization concept for different infrastructure provision in a reusable form
+        - Deploy of two EC2 instances in the same resource module
+        - Deploy of two EC2 instances and one S3 bucket in different modules
     - *Terraform Output* - use of output files to capture variables sent by AWS after Terraform application.
