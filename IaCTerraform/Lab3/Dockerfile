@@ -19,7 +19,7 @@ RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform
 
 # create the folder lab3 as a volume
 RUN mkdir /lab3
-VOLUME /lab3
+VOLUME /lab3/
 
 # create the folder downlodas and install AWS CLI
 RUN mkdir /downloads && \
