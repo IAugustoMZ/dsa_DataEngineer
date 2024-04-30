@@ -34,3 +34,9 @@ The first course of the Data Engineer formation includes the automation procedur
         - Deploy of two EC2 instances in the same resource module
         - Deploy of two EC2 instances and one S3 bucket in different modules
     - *Terraform Output* - use of output files to capture variables sent by AWS after Terraform application.
+- **Laboratory 3** - Provision of Amazon EC2 instance using Provisioners
+    - *Provisioners* - implementation of a web server by executing commands inside and outside the provisioned EC2 instance using the Provisioners feature.
+    - *Security Groups* - automated the creation and configuration of security groups with Terraform
+    - *Using Shell Scripts* - automated the execution of shell (bash) scripts inside the EC2 instance
+    - *Without Provisioners* - executed shell (bash) scripts inside the EC2 instance without the use of Provisioners
+    - *Multiple instances with checking* - the script used repetitions and conditionals expressions to automate the creation of multiple web servers with type validation
