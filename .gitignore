@@ -1,2 +1,8 @@
 *\data
 IaCTerraform/Lab4/sstk_ml_app/logs.log
+
+# terraform files
+*\.terraform
+*\.terraform.lock.hcl
+*\terraform.tfstate
+*\terraform.tfstate.backup

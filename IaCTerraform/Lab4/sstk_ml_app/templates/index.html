@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Turbofan Predictive Maintenance App</title>
+    </head>
+    <body>
+        <div style="text-align: center;">
+            <h1>Lab 4 - Data Science Academy</h1>
+            <h2>This is a Machine Learning model to predict if a turbofan will fail in its next 30 cycles</h2>
+            <h3>Enter below the values of the sensor readings:</h3>
+            <form action="/predict" method="post">
+                <label>Low-pressure turbines Cool air flow</label>
+                <input type="text" name="(Low-pressure turbines Cool air flow)" placeholder="22.9 - 23.7" required="required"/>
+                <br><br>
+                <label>Bleed Enthalpy</label>
+                <input type="text" name="(Bleed Enthalpy)" placeholder="388 - 399" required="required"/>
+                <br><br>
+                <label>Bypass Ratio</label>
+                <input type="text" name="(Bypass Ratio) " placeholder="8.33 - 8.58" required="required"/>
+                <br><br>
+                <label>Corrected fan speed (rpm)</label>
+                <input type="text" name="(Corrected fan speed) (rpm)" placeholder="2387 - 2388.5" required="required"/>
+                <br><br>
+                <label>LPC outlet temperature (◦R)</label>
+                <input type="text" name="(LPC outlet temperature) (◦R)" placeholder="641.2 - 644.5" required="required"/>
+                <br><br>
+                <label>HPC outlet temperature (◦R)</label>
+                <input type="text" name="(HPC outlet temperature) (◦R)" placeholder="1571 - 1616.9" required="required"/>
+                <br><br>
+                <label>LPT outlet temperature (◦R)</label>
+                <input type="text" name="(LPT outlet temperature) (◦R)" placeholder="1382.2 - 1438.9" required="required"/>
+                <br><br>
+                <label>Ratio of fuel flow to Ps30 (pps/psia)</label>
+                <input type="text" name="(Ratio of fuel flow to Ps30) (pps/psia)" placeholder="518.7 - 523.2" required="required"/>
+                <br><br>
+                <label>HPC outlet Static pressure (psia)</label>
+                <input type="text" name="(HPC outlet Static pressure) (psia)" placeholder="46.8 - 48.5" required="required"/>
+                <br><br>
+                <label>HPC outlet pressure (psia)</label>
+                <input type="text" name="(HPC outlet pressure) (psia)" placeholder="550.3 - 556.1" required="required"/>
+                <br><br>
+                <label>Cycles</label>
+                <input type="text" name="cycles" placeholder="1 - 362" required="required"/>
+                <br><br>
+                <button type="submit">Predict</button>
+            </form>
+
+            {% if prediction_text %}
+                <h3>{{ prediction_text }}</h3>
+            {% endif %}
+        </div>
+</html>
