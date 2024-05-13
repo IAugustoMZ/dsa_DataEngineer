@@ -1,0 +1,1 @@
+aws s3 cp /iac/sstk_ml_app s3://sstk-flask-bucket-574973852419/ --recursive
