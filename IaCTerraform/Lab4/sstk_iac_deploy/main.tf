@@ -27,7 +27,7 @@ resource "aws_s3_bucket" "sstk_bucket_flask"{
 
 # EC2 resource block
 resource "aws_instance" "sstk_ml_api" {
-    ami = "ami-0a0d9cf81c479446a"
+    ami = "ami-02bf8ce06a8ed6092"
     instance_type = "t2.micro"
     iam_instance_profile = aws_iam_instance_profile.ec2_s3_profile.name
     vpc_security_group_ids = [aws_security_group.sstk_ml_app_sg.id]
@@ -36,11 +36,11 @@ resource "aws_instance" "sstk_ml_api" {
                 #!/bin/bash
                 sudo yum update -y
                 sudo yum install -y python3 python3-pip awscli
-                sudo pip3 install flask joblib pycaret numpy pandas scipy gunicorn
+                sudo pip3 install python-dateutil flask joblib scikit-learn numpy pandas scipy gunicorn
                 sudo mkdir /sstk_ml_app
-                sudo aws s3 sync s3://sstk-flask-bucket-574973852419 /sstk_ml_app
+                sudo /usr/bin/python3 -m awscli s3 sync s3://sstk-flask-bucket-574973852419 /sstk_ml_app
                 cd /sstk_ml_app
-                nohup gunicorn -w 4 -b 0.0.0.0.:5000 app:app &
+                nohup gunicorn -w 4 -b 0.0.0.0:5000 app:app &
                 EOF
 
     tags = {
