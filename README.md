@@ -40,3 +40,7 @@ The first course of the Data Engineer formation includes the automation procedur
     - *Using Shell Scripts* - automated the execution of shell (bash) scripts inside the EC2 instance
     - *Without Provisioners* - executed shell (bash) scripts inside the EC2 instance without the use of Provisioners
     - *Multiple instances with checking* - the script used repetitions and conditionals expressions to automate the creation of multiple web servers with type validation
+- **Laboratory 4** - Provision of an entire infrastructure (EC2 + S3) to serve a machine learning model web application
+    - *Provisioners* - to run delete commands when destroying IaC
+    - *Machine Learning Model Training and Deploy* - using classic Data Science and Machine Learning techniques
+    - *Web Application Development* - to serve the model predictions and to allow user inputs and interactions
