@@ -17,7 +17,7 @@ resource "aws_ecs_task_definition" "sstk-ecs-task-definition" {
   cpu                       = var.cpu
   memory                    = var.memory
   execution_role_arn        = "arn:aws:iam::${var.aws_account_id}:role/ecsTaskExecutionRole"
-  tasktask_role_arn         = "arn:aws:iam::${var.aws_account_id}:role/ecsTaskExecutionRole"
+  task_role_arn             = "arn:aws:iam::${var.aws_account_id}:role/ecsTaskExecutionRole"
 
   container_definitions = jsonencode([
     {
