@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+
+  terraform:
+    image: sstk-terraform-image:lab5
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sstk-lab5
+    volumes:
+      - .\iac:/iac
+    command: tail -F anything
