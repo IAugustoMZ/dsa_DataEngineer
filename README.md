@@ -44,3 +44,8 @@ The first course of the Data Engineer formation includes the automation procedur
     - *Provisioners* - to run delete commands when destroying IaC
     - *Machine Learning Model Training and Deploy* - using classic Data Science and Machine Learning techniques
     - *Web Application Development* - to serve the model predictions and to allow user inputs and interactions
+- **Laboratory 5** - Provision of a complete application served by a Docker container
+    - *Amazon Elastic Container Services* - for supporting the execution of the containers
+    - *Amazon Application Load Balancer* - to balance the load across server replics
+    - *VPCs, security groups and IAM roles* - to manage privileges and access
+    - *Docker-Compose* - to ease the creation of the container (client)
