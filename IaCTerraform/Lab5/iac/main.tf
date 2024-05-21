@@ -67,7 +67,7 @@ resource "aws_ecs_service" "sstk-ecs-service" {
   network_configuration {
     assign_public_ip    = true      # we want to connect from the internet
     subnets             = [ module.vpc.public_subnets[0] ]
-    security_groups     = [ module.container_security_group.security_group_id ]
+    security_groups     = [ module.container-security-group.security_group_id ]
   }
 
   # configures the service to use an Application Load Balancer
@@ -84,7 +84,7 @@ resource "aws_lb" "sstk-ecs-alb" {
     name                = "${var.project_name}-${var.environment}-alb"
     internal            = false     # this application is public
     load_balancer_type  = "application"
-    security_groups     = [ module.alb-security_group.security_group_id ]
+    security_groups     = [ module.alb-security-group.security_group_id ]
     subnets             = [ module.vpc.public_subnets[0] , module.vpc.public_subnets[1] ]
   
 }

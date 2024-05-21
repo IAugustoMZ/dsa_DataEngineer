@@ -39,7 +39,7 @@ module "alb-security-group" {
     vpc_id  = module.vpc.vpc_id
 
     # defines the ingress rules for the security group
-    ingress_cidr_blocks = [
+    ingress_with_cidr_blocks = [
         {
             from_port   = var.alb_sg_port
             to_port     = var.alb_sg_port
