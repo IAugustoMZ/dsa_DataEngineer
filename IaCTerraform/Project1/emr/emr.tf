@@ -31,6 +31,7 @@ variable "steps" {
         ))
     }
     ))
+    default = null
 }
 variable "bootstrap_actions" {
     type = set(object(
