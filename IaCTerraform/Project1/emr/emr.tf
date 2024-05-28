@@ -15,7 +15,7 @@ variable "emr_core_instance_type" { }
 variable "emr_core_instance_count" { }
 variable "core_instance_ebs_volume_size" { default = "80" }
 variable "security_configuration_name" { default = null }
-variable "log_uri" { default = "s3://sstk-project1-<account-id>" }
+variable "log_uri" { default = "s3://sstk-p1-574973852419" }
 variable "configurations" { default = null }
 variable "steps" {
     type = list(object({
@@ -86,9 +86,9 @@ resource "aws_emr_cluster" "sstk-emr-cluster" {
     ec2_attributes {
         key_name                            = var.key_name
         subnet_id                           = var.public_subnet
-        instance_profile                    = aws_iam_instance_profile.sstk-ec2-instance-profile.arn
-        emr_managed_master_security_group   = aws_security_group.main_security_group.id
-        emr_managed_slave_security_group    = aws_security_group.core_security_group.id
+        instance_profile                    = aws_iam_instance_profile.sstk_ec2_emr_instance_profile.arn
+        emr_managed_master_security_group   = aws_security_group.sstk_emr_main_security_group.id
+        emr_managed_slave_security_group    = aws_security_group.sstk_emr_core_security_group.id
         additional_master_security_groups   = var.additional_security_groups_id
         additional_slave_security_groups    = var.additional_security_groups_id 
     }

@@ -16,10 +16,10 @@ environment = "emr-dev"
 emr_release_label = "emr-7.0.0"
 
 # master instance type
-master_instance_type = "m5.xlarge"
+emr_main_instance_type = "m5.xlarge"
 
 # core instance type
-core_instance_type = "m5.xlarge"
+emr_core_instance_type = "m5.xlarge"
 
 # core instance count
-core_instance_count = "2"
+emr_core_instance_count = "2"

@@ -49,3 +49,7 @@ The first course of the Data Engineer formation includes the automation procedur
     - *Amazon Application Load Balancer* - to balance the load across server replics
     - *VPCs, security groups and IAM roles* - to manage privileges and access
     - *Docker-Compose* - to ease the creation of the container (client)
+- **Project 1** - Provision of a EMR (Amazon Elastic Map Reduce) cluster to process data
+    - build the Terraform infrastructure scripts
+    - run the infrastructure using Docker-Compose + Linux commands
+    - run a data processing job using Apache Flink - WordCount example

@@ -3,7 +3,7 @@
 # variables
 variable "region" { default = "us-east-2" }
 variable "emr_release_label" {}
-variable "emr_master_instance_type" {}
+variable "emr_main_instance_type" {}
 variable "emr_core_instance_type" {}
 variable "emr_core_instance_count" {}
 variable "project" {}
@@ -62,14 +62,14 @@ module "emr" {
     environment                     = var.environment
     emr_release_label               = var.emr_release_label
     emr_applications                = ["Hadoop", "Zeppelin", "Flink"]
-    emr_main_instance_type          = var.emr_master_instance_type
+    emr_main_instance_type          = var.emr_main_instance_type
     emr_core_instance_type          = var.emr_core_instance_type
     emr_core_instance_count         = var.emr_core_instance_count
     configurations                  = local.configurations_json
     key_name                        = module.ssh.deployer_key_name
     vpc_id                          = module.networking.vpc_id
     public_subnet                   = module.networking.public_subnet_2
-    additional_security_groups_id   = module.network.integration_service_security_group_id
+    additional_security_groups_id   = module.networking.integration_service_security_group_id
     tags                            = local.tags
 }
 
