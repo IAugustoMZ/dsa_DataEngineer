@@ -61,7 +61,7 @@ Follow these steps to run this project
 
 15. An alternative is to run the same job, but reading from and writing to the Amazon S3 service
 
-`aws emr add-steps --cluster-id j-2NEZMXP20K2OK --steps Type=CUSTOM_JAR,Name=job1_p1,Jar=command-runner.jar,Args="flink","run","-m","yarn-cluster","/usr/lib/flink/examples/streaming/WordCount.jar","--input","s3://sstk-p1-574973852419/pneumatic_valve.txt","--output","s3://sstk-p1-574973852419/word_count_valve_manual.txt" --region us-east-2`
+`aws emr add-steps --cluster-id j-2QLSX6UWLP59U --steps Type=CUSTOM_JAR,Name=job1_p1,Jar=command-runner.jar,Args="flink","run","-m","yarn-cluster","/usr/lib/flink/examples/streaming/WordCount.jar","--input","s3://sstk-p1-574973852419/pneumatic_valve.txt","--output","s3://sstk-p1-574973852419/word_count_valve_manual.txt" --region us-east-2`
 
 16. After finishing the jobs, you can destroy the cluster
 
