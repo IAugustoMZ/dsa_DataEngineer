@@ -1,9 +1,11 @@
 #%%
 import os
 import ast
+import glob
 import warnings
 import numpy as np
 import pandas as pd
+
 
 # ignore warnings
 warnings.filterwarnings("ignore")
@@ -17,9 +19,10 @@ source_path = os.path.join(
             )
         )
     ),
-    'data'
+    'data',
+    'safety_datasets'
 )
-source_name = 'safety_dataset.csv'
+
 
 # define the sink path
 sink_path = os.path.join(
@@ -34,7 +37,21 @@ sink_path = os.path.join(
 sink_name ='dataset.csv'
 
 # read the data
-data = pd.read_csv(os.path.join(source_path, source_name))
+# get a list of all CSV files in the folder
+csv_files = glob.glob(os.path.join(source_path, '*.csv'))
+
+# create an empty list to store the dataframes
+dfs = []
+
+# iterate over each CSV file
+for file in csv_files:
+    # read the CSV file into a dataframe
+    df = pd.read_csv(file)
+    # append the dataframe to the list
+    dfs.append(df)
+
+# concatenate all dataframes into a single dataframe
+data = pd.concat(dfs, ignore_index=True)
 
 # drop unused columns
 data.drop(columns=['issues'], inplace=True)
