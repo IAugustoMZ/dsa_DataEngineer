@@ -9,7 +9,6 @@ import traceback
 from aws_infra import AWSInfra
 from proj_log import LoggerClass
 from pyspark.sql import SparkSession
-
 from spark_complete_pipeline_service import SafetyReportCompletePipeline
 
 print('\n[INFO] Starting the Processing')
