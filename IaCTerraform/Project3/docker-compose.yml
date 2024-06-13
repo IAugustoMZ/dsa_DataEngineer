@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+terraform:
+  image: sstk-terraform-image:proj3
+  build:
+    context: .
+    dockerfile: Dockerfile
+  container_name: sstk-proj3
+  volumes:
+    - .:/iac
+  command: tail -F anything
