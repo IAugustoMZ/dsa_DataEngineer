@@ -36,3 +36,29 @@ resource "azurerm_network_interface" "sstk_ni" {
         private_id_address_allocation = "Dynamic"
     }
 }
+
+# create a virtual machine Linux
+resource "azurerm_linux_virtual_machine" "sstk_vm"{
+    name                            = "vmsstk"
+    resource_group_name             =  azurerm_resource_group.sstk_project.name
+    location                        = azurerm_resource_group.sstk_project.location
+    size                            = "Standard_F2"
+    admin_username                  = "adminuser"
+    disable_password_authentication = false
+    admin_password                  = "ExHpaQMGesTCjJYRNwPnbk"
+    network_interface_ids           = [azurerm_network_interface.sstk_ni.id]
+
+    # OS disk configuration
+    os_disk {
+        caching                 = "ReadWrite"
+        storage_account_type    = "Standard_LRS"
+    }
+
+    # OS image source
+    source_image_reference {
+        publisher   = "Canonical"
+        offer       = "0001-com-ubuntu-server-focal"
+        sku         = "20_04-lts"
+        version     = "latest"
+    }
+}
