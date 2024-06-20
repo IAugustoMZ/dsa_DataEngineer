@@ -93,7 +93,7 @@ resource "aws_lb" "aws_alb" {
     load_balancer_type  = "application"
     security_groups     = [aws_security_group.aws_lb_sg_.id]
     subnets             = [
-        aws.aws_public_subnet_1.id
+        aws.aws_public_subnet_1.id,
         aws.aws_public_subnet_2.id
     ]
 
@@ -107,7 +107,7 @@ resource "aws_lb_target_group" "aws_app_tg" {
     name        = "AppTargetGroup"
     port        = "80"
     protocol    = "HTTP"
-    vpc_id      = "${aws_vpc.aws_sstk_vpc.id}
+    vpc_id      = "${aws_vpc.aws_sstk_vpc.id}"
 }
 
 # defines a listener for the load balancer

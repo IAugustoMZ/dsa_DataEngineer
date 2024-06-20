@@ -23,8 +23,8 @@ resource "azurerm_subnet" "SSTKsn" {
 # creates a public IP address
 resource "azurerm_public_ip" "SSTKip" {
     name = "sstkPublicIP"
-    location = "azurerm_resource_group.SSTKrg.location
-    resource_group_name = azurerm_resource_group.name
+    location = "azurerm_resource_group.SSTKrg.location"
+    resource_group_name = azurerm_resource_group.SSTKrg.name
     allocation_method = "Dynamic"
 }
 
@@ -38,7 +38,7 @@ resource "azurerm_network_interface" "SSTKni" {
         name                          = "sstkIPConfig"
         subnet_id                     = azurerm_subnet.SSTKsn.id
         private_ip_address_allocation = "Dynamic"
-        public_ip_address_ip          = azurerm_public_ip.SSTKip.id
+        public_ip_address_id          = azurerm_public_ip.SSTKip.id
     }
 }
 
