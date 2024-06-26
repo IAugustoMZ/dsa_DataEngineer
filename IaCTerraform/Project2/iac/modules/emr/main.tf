@@ -19,7 +19,7 @@ resource "aws_emr_cluster" "cluster" {
     keep_job_flow_alive_when_no_steps = false
 
     # URI with the folders for logs
-    log_uri = "s3://${var.name_bucket}/logs"
+    log_uri = "s3://${var.name_bucket}/logs/"
 
     # service role IAM
     service_role = var.service_role
@@ -33,19 +33,19 @@ resource "aws_emr_cluster" "cluster" {
 
     # type of instances of cluster
     master_instance_group {
-      instance_type = "m5.4xlarge"
+      instance_type = "m5.2xlarge"
     }
 
     # type of instances of workers
     core_instance_group {
-      instance_type = "m5.2xlarge"
+      instance_type = "m5.xlarge"
       instance_count = "2"
     }
 
     # executes the installation script for Python interpreter and additional packages
     bootstrap_action {
       name = "Install additional Python packages"
-      path = "s3://${var.name_bucket}/bootstrap.sh"
+      path = "s3://${var.name_bucket}/scripts/bootstrap.sh"
     }
 
     # steps executed in the cluster
@@ -74,7 +74,7 @@ resource "aws_emr_cluster" "cluster" {
             hadoop_jar_step = [
               {
                 jar         = "command-runner.jar"
-                args        = ["aws", "s3", "cp", "s3://${var.name_bucket}/logs", "/home/hadoop/logs", "--recursive"]
+                args        = ["aws", "s3", "cp", "s3://${var.name_bucket}/logs", "/home/hadoop/logs/", "--recursive"]
                 main_class  = ""
                 properties  = {}
               }
@@ -87,7 +87,7 @@ resource "aws_emr_cluster" "cluster" {
             hadoop_jar_step = [
               {
                 jar         = "command-runner.jar"
-                args        = ["spark-submit", "s3://${var.name_bucket}/pipeline/main_project2.py"]
+                args        = ["spark-submit", "/home/hadoop/pipeline/main_project2.py"]
                 main_class  = ""
                 properties  = {}
               }
@@ -97,16 +97,16 @@ resource "aws_emr_cluster" "cluster" {
 
     # Spark configuration file
     configurations_json = <<EOF
-    [
-      {
-        "Classification": "spark-defaults",
-        "Properties": {
-          "spark.pyspark.python": "/home/hadoop/conda/bin/python",
-          "spark.dynamicAllocation.enabled": "true",
-          "spark.network.timeout": "800s",
-          "spark.executor.heartbeatInterval": "60s",
-        }
-      }
-    ]
-    EOF
+        [
+          {
+            "Classification": "spark-defaults",
+            "Properties": {
+              "spark.pyspark.python": "/home/hadoop/conda/bin/python",
+              "spark.dynamicAllocation.enabled": "true",
+              "spark.network.timeout": "800s",
+              "spark.executor.heartbeatInterval": "60s"
+            }
+          }
+        ]
+        EOF
 }

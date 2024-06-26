@@ -10,12 +10,12 @@ resource "aws_iam_role" "iam_emr_service_role" {
     "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole"
   ]
 
-  assume_role_policy =<<EOF
+  assume_role_policy = <<EOF
   {
     "Version": "2008-10-17",
     "Statement": [
       {
-        "Sid": ""
+        "Sid": "",
         "Effect": "Allow",
         "Principal": {
           "Service": "elasticmapreduce.amazonaws.com"
@@ -41,7 +41,7 @@ resource "aws_iam_role" "iam_emr_profile_role" {
         "Version": "2008-10-17",
         "Statement": [
             {
-                "Sid": ""
+                "Sid": "",
                 "Effect": "Allow",
                 "Principal": {
                     "Service": "ec2.amazonaws.com"
