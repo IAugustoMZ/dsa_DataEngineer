@@ -6,8 +6,8 @@ from proj_log import LoggerClass
 class AWSInfra:
 
     BUCKET_NAME     = "sstk-p2-574973852419"
-    AWSACCESSKEYID  = "put-here-your-aws-access-key-id"
-    AWSSECRETKEY    = "put-here-your-aws-secret-key"
+    AWSACCESSKEYID  = "****************"
+    AWSSECRETKEY    = "*********************"
 
     def __init__(self):
         """

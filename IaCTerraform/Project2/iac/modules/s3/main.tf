@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "create_bucket" {
 }
 
 # bucket versioning
-resource "AWS_s3_bucket_versioning" "versioning_bucket" {
+resource "aws_s3_bucket_versioning" "versioning_bucket" {
     bucket = aws_s3_bucket.create_bucket.id
 
     versioning_configuration { status = var.versioning_bucket }

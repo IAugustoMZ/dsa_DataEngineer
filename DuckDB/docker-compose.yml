@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  duckdb:
+    image: sstk-duck-db:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sstk-duckdb
+    volumes:
+      - E:\LocalPortfolio\Education\DataScienceAcademy\dsa_DataEngineer\DuckDB\duckdb_intro:/duckdb_intro
+      - E:\LocalPortfolio\Education\DataScienceAcademy\dsa_DataEngineer\DuckDB\duckdb_project:/duckdb_project
+    command: tail -F anything

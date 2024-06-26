@@ -1,7 +1,7 @@
 # create work folders in S3
 
 # python scripts folder
-resource "aws_s3_obejct" "python_scripts" {
+resource "aws_s3_object" "python_scripts" {
 
     for_each    = fileset("${var.files_bucket}/", "**")
     bucket      = var.bucket_name
@@ -12,7 +12,7 @@ resource "aws_s3_obejct" "python_scripts" {
 }
 
 # raw_data folder
-resource "aws_s3_obejct" "raw_data" {
+resource "aws_s3_object" "raw_data" {
 
     for_each    = fileset("${var.files_data}/", "**")
     bucket      = var.bucket_name
@@ -23,32 +23,32 @@ resource "aws_s3_obejct" "raw_data" {
 }
 
 # bash scripts folder
-resource "aws_s3_obejct" "bash_scripts" {
+resource "aws_s3_object" "bash_scripts" {
 
     for_each    = fileset("${var.files_bash}/", "**")
     bucket      = var.bucket_name
-    key         = "data/${each.value}"
+    key         = "scripts/${each.value}"
     source      = "${var.files_bash}/${each.value}"
     etag        = filemd5("${var.files_bash}/${each.value}")
 
 }
 
 # processed_data folder
-resource "aws_s3_obejct" "processed_data" {
+resource "aws_s3_object" "processed_data" {
 
     bucket      = var.bucket_name
     key         = "data/"
 }
 
 # logs folder
-resource "aws_s3_obejct" "logs" {
+resource "aws_s3_object" "logs" {
 
     bucket      = var.bucket_name
     key         = "logs/"
 }
 
 # output folder
-resource "aws_s3_obejct" "output" {
+resource "aws_s3_object" "output" {
 
     bucket      = var.bucket_name
     key         = "output/"

@@ -14,13 +14,13 @@ terraform {
     # backend used for remote state
     backend "s3" {
         encrypt = true
-        bucket  = var.name_bucket_state
+        bucket  = "sstk-p2-terraform-574973852419"
         key     = "sstk-p2.tfstate"
-        region  = var.region
+        region  = "us-east-2"
     }
 }
 
 # provider AWS region
 provider "aws" {
-    region = var.region
+    region = "us-east-2"
 }
