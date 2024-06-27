@@ -49,7 +49,22 @@ The first course of the Data Engineer formation includes the automation procedur
     - *Amazon Application Load Balancer* - to balance the load across server replics
     - *VPCs, security groups and IAM roles* - to manage privileges and access
     - *Docker-Compose* - to ease the creation of the container (client)
-- **Project 1** - Provision of a EMR (Amazon Elastic Map Reduce) cluster to process data
+- **Project 1** - Provision of an EMR (Amazon Elastic Map Reduce) cluster to process data
     - build the Terraform infrastructure scripts
     - run the infrastructure using Docker-Compose + Linux commands
     - run a data processing job using Apache Flink - WordCount example
+- **Project 2** - Provision of an EMR cluster (Amazon Elastic Map Reduce) to train a machine learning model
+    - Terraform infrastructure
+    - all the model training and evaluation was made through Terraform automation and Apache Spark commands
+    - the problem is to create a NLP model that automatically classifies the gravity of a text report referring safety incidents and accidents.
+- **Project 3** - Basic provision of virtual machines in Microsoft Azure cloud
+- **Project 4** - Basic provision of virtual machines in Microsoft Azure cloud and AWS using the advantages of multi-cloud services
+- **Project 5** - Provision and execution of infrastructure in Databricks Cloud using Terraform - WIP 🚧
+
+## 📈 Database Analytics Using DuckDB
+
+In this course, it is shown how to use DuckDB as a local columnar database along with SQL expressions to query data for insights.
+
+- **Project** - implementation of an ETL flow to extract data from a production and quality huge table, transform them into a star schema model and load them into a DuckDB table.
+    - After the ETL job, we perform some queries to gain insights about the quality and process status of this industry.
+    - 🚧 Work in Progress
