@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  database:
+    image: postgres:16.0
+    container_name: sstk-database-sql
+    environment:
+      POSTGRES_USER: sstk-admin
+      POSTGRES_PASSWORD: <password-here>
+      POSTGRES_DB: sstk-database
+    ports:
+      - "5437:5432"
+      
