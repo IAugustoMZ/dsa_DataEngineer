@@ -8,4 +8,5 @@ IaCTerraform/Lab4/sstk_ml_app/logs.log
 *\terraform.tfstate.backup
 
 # ignore env vars
-*\vars.env
+*\.env
+*\__pycache__
