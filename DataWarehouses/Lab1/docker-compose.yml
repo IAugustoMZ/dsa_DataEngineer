@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  duckdb:
+    image: sstk-datawarehouse-lab1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sstk-datawarehouse-lab1
+    volumes:
+      - E:\LocalPortfolio\Education\DataScienceAcademy\dsa_DataEngineer\DataWarehouses\Lab1:/lab1
+    command: tail -F anything
