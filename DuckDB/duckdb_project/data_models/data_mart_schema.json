@@ -48,8 +48,10 @@
                 "type": "TEXT"
             },
             "state_fk": {
-                "type": "NUMERIC",
-                "foreign_key": {
+                "type": "NUMERIC"
+            },
+            "foreign_key": {
+                "state_fk":{
                     "table": "state_dimension",
                     "column": "state_id"
                 }
@@ -69,15 +71,17 @@
             "product_cost": {
                 "type": "NUMERIC"
             },
+            "product_validity_months": {
+                "type": "NUMERIC"
+            },
             "prod_line_fk": {
-                "type": "NUMERIC",
-                "foreign_key": {
+                "type": "NUMERIC"
+            },
+            "foreign_key": {
+                "prod_line_fk":{
                     "table": "production_line_dimension",
                     "column": "production_line_id"
                 }
-            },
-            "product_validity_months": {
-                "type": "NUMERIC"
             }
         },
         "issues_dimension":{
@@ -118,29 +122,31 @@
             "date": {
                 "type": "DATE"
             },
+            "qty_ncs": {
+                "type": "NUMERIC"
+            },
             "prod_id_fk":{
-                "type": "NUMERIC",
-                "foreign_key": {
-                    "table": "product_dimension",
-                    "column": "product_id"
-                }
+                "type": "NUMERIC"
             },
             "process_step_fk":{
-                "type": "NUMERIC",
-                "foreign_key": {
-                    "table": "process_steps_dimension",
-                    "column": "process_step_id"
-                }
+                "type": "NUMERIC"
             },
             "issues_fk":{
-                "type": "NUMERIC",
-                "foreign_key": {
+                "type": "NUMERIC"
+            },
+            "foreign_key": {
+                "prod_id_fk":{
+                    "table": "product_dimension",
+                    "column": "product_id"
+                },
+                "process_step_fk":{
+                    "table": "process_steps_dimension",
+                    "column": "process_step_id"
+                },
+                "issues_fk":{
                     "table": "issues_dimension",
                     "column": "issue_id"
                 }
-            },
-            "qty_ncs": {
-                "type": "NUMERIC"
             }
         },
         "external_ncs_fact":{
@@ -151,39 +157,41 @@
             "date_complaint":{
                 "type": "DATE"
             },
-            "product_fk":{
-                "type": "NUMERIC",
-                "foreign_key": {
-                    "table": "product_dimension",
-                    "column": "product_id"
-                }
-            },
-            "city_fk":{
-                "type": "NUMERIC",
-                "foreign_key": {
-                    "table": "city_dimension",
-                    "column": "city_id"
-                }
-            },
             "fabricatiton_date":{
                 "type": "DATE"
             },
+            "qty_ncs": {
+                "type": "NUMERIC"
+            },
+            "product_fk":{
+                "type": "NUMERIC"
+            },
+            "city_fk":{
+                "type": "NUMERIC"
+            },
             "issue_fk":{
-                "type": "NUMERIC",
-                "foreign_key": {
-                    "table": "issues_dimension",
-                    "column": "issue_id"
-                }
+                "type": "NUMERIC"
             },
             "type_fk":{
-                "type": "NUMERIC",
-                "foreign_key": {
+                "type": "NUMERIC"
+            },
+            "foreign_key": {
+                "product_fk":{
+                    "table": "product_dimension",
+                    "column": "product_id"
+                },
+                "city_fk":{
+                    "table": "city_dimension",
+                    "column": "city_id"
+                },
+                "issue_fk":{
+                    "table": "issues_dimension",
+                    "column": "issue_id"
+                },
+                "type_fk":{
                     "table": "complaint_type_dimension",
                     "column": "complaint_type_id"
                 }
-            },
-            "qty_ncs": {
-                "type": "NUMERIC"
             }
         }
     }

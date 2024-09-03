@@ -1,0 +1,11 @@
+2024-09-03 01:16:44.479023 - [INFO] - Getting data sources and transaction data path
+2024-09-03 01:16:44.480696 - [INFO] - Creating the sink database
+2024-09-03 01:16:44.496209 - [INFO] - Creating table production_line_dimension
+2024-09-03 01:16:44.501911 - [INFO] - Creating table state_dimension
+2024-09-03 01:16:44.505561 - [INFO] - Creating table complaint_type_dimension
+2024-09-03 01:16:44.509542 - [INFO] - Creating table process_steps_dimension
+2024-09-03 01:16:44.514158 - [INFO] - Creating table city_dimension
+2024-09-03 01:16:44.517001 - [INFO] - Creating table product_dimension
+2024-09-03 01:16:44.521179 - [INFO] - Creating table issues_dimension
+2024-09-03 01:16:44.525867 - [INFO] - Creating table internal_ncs_fact
+2024-09-03 01:16:44.529890 - [INFO] - Creating table external_ncs_fact

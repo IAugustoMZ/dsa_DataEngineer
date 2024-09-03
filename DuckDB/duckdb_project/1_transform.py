@@ -27,7 +27,6 @@ quality_transactions = os.environ.get('OLAP_TOOL_PATH')
 
 # create the sink database
 logger.log("Creating the sink database")
-data_mart.setup_db('sink_olap')
 
 # creating the sinf data mart schemas
-data_mart.create_sink_data_mart()
+data_mart.create_sink_data_mart(data_mart_name='sink_data_mart')
