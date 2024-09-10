@@ -1,0 +1,108 @@
+2024-09-10 02:12:39.166309 - [INFO] - Starting to load the data mart
+2024-09-10 02:12:39.167916 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:12:39.332425 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:12:39.342509 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:12:39.875567 - [INFO] - Loading data into state_dimension
+2024-09-10 02:20:42.303450 - [INFO] - Starting to load the data mart
+2024-09-10 02:20:42.305201 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:21:01.380153 - [INFO] - Starting to load the data mart
+2024-09-10 02:21:01.381464 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:21:01.436854 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:21:01.445742 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:21:01.480185 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:21:01.488070 - [INFO] - Loading data into state_dimension
+2024-09-10 02:21:01.527401 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:21:01.535372 - [INFO] - Loading data into complaint_type_dimension
+2024-09-10 02:21:01.569384 - [ERROR] - Error loading data into complaint_type_dimension: Binder Error: Column name/value mismatch for insert on complaint_type_dimension: expected 1 columns but 2 values were supplied
+2024-09-10 02:22:19.221666 - [INFO] - Starting to load the data mart
+2024-09-10 02:22:19.223119 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:22:19.265333 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:22:19.273895 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:22:19.311140 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:22:19.321740 - [INFO] - Loading data into state_dimension
+2024-09-10 02:22:19.360806 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:22:19.371482 - [INFO] - Loading data into complaint_type_dimension
+2024-09-10 02:22:19.415714 - [ERROR] - Error loading data into complaint_type_dimension: Binder Error: Table "complaint_type_dimension" does not have a column with name "type_description"
+2024-09-10 02:22:45.479819 - [INFO] - Starting to load the data mart
+2024-09-10 02:22:45.481406 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:22:45.520780 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:22:45.528505 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:22:45.563525 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:22:45.572837 - [INFO] - Loading data into state_dimension
+2024-09-10 02:22:45.610834 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:22:45.620324 - [INFO] - Loading data into complaint_type_dimension
+2024-09-10 02:29:36.076919 - [INFO] - Starting to load the data mart
+2024-09-10 02:29:36.078358 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:29:47.396453 - [INFO] - Starting to load the data mart
+2024-09-10 02:29:47.398012 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:29:47.438938 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:29:47.447336 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:29:47.484672 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:29:47.494051 - [INFO] - Loading data into state_dimension
+2024-09-10 02:29:47.529622 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:29:47.539728 - [INFO] - Loading data into complaint_type_dimension
+2024-09-10 02:29:47.573206 - [ERROR] - Error loading data into complaint_type_dimension: Constraint Error: Duplicate key "complaint_type_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:29:47.581124 - [INFO] - Loading data into issues_dimension
+2024-09-10 02:39:22.345209 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-10 02:39:22.346882 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:39:58.843382 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-10 02:39:58.845291 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:40:06.421363 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:40:06.423574 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:40:06.432584 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:40:06.435098 - [INFO] - Loading data into state_dimension
+2024-09-10 02:40:06.448270 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:40:06.451157 - [INFO] - Loading data into complaint_type_dimension
+2024-09-10 02:40:06.460553 - [ERROR] - Error loading data into complaint_type_dimension: Constraint Error: Duplicate key "complaint_type_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:40:06.462343 - [INFO] - Loading data into issues_dimension
+2024-09-10 02:40:06.476351 - [ERROR] - Error loading data into issues_dimension: Constraint Error: Duplicate key "issue_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:40:06.478752 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-10 02:41:07.666793 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-10 02:41:07.668462 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:41:07.713686 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:41:07.721227 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:41:07.761140 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:41:07.772214 - [INFO] - Loading data into state_dimension
+2024-09-10 02:41:07.812767 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:41:07.821322 - [INFO] - Loading data into complaint_type_dimension
+2024-09-10 02:41:07.858289 - [ERROR] - Error loading data into complaint_type_dimension: Constraint Error: Duplicate key "complaint_type_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:41:07.867769 - [INFO] - Loading data into issues_dimension
+2024-09-10 02:41:07.912436 - [ERROR] - Error loading data into issues_dimension: Constraint Error: Duplicate key "issue_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:41:07.923300 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-10 02:43:30.540478 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-10 02:43:30.542076 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:43:30.584653 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:43:30.592839 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:43:30.663210 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:43:30.671620 - [INFO] - Loading data into state_dimension
+2024-09-10 02:43:30.708927 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:43:30.717608 - [INFO] - Loading data into complaint_type_dimension
+2024-09-10 02:43:30.752184 - [ERROR] - Error loading data into complaint_type_dimension: Constraint Error: Duplicate key "complaint_type_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:43:30.760348 - [INFO] - Loading data into issues_dimension
+2024-09-10 02:43:30.798819 - [ERROR] - Error loading data into issues_dimension: Constraint Error: Duplicate key "issue_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:43:30.808525 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-10 02:43:46.511468 - [ERROR] - Error loading data into city dimension: Invalid Input Error: executemany requires a list of parameter sets to be provided
+2024-09-10 02:44:17.309269 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-10 02:44:17.310868 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:44:17.351746 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:17.359944 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:44:17.397697 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:17.406522 - [INFO] - Loading data into state_dimension
+2024-09-10 02:44:17.444800 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:17.454114 - [INFO] - Loading data into complaint_type_dimension
+2024-09-10 02:44:17.489857 - [ERROR] - Error loading data into complaint_type_dimension: Constraint Error: Duplicate key "complaint_type_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:17.497732 - [INFO] - Loading data into issues_dimension
+2024-09-10 02:44:17.538918 - [ERROR] - Error loading data into issues_dimension: Constraint Error: Duplicate key "issue_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:17.548436 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-10 02:44:57.741104 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-10 02:44:57.742968 - [INFO] - Loading data into production_line_dimension
+2024-09-10 02:44:57.787393 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:57.796342 - [INFO] - Loading data into process_steps_dimension
+2024-09-10 02:44:57.832882 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:57.842597 - [INFO] - Loading data into state_dimension
+2024-09-10 02:44:57.884512 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:57.893707 - [INFO] - Loading data into complaint_type_dimension
+2024-09-10 02:44:57.928404 - [ERROR] - Error loading data into complaint_type_dimension: Constraint Error: Duplicate key "complaint_type_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:57.937046 - [INFO] - Loading data into issues_dimension
+2024-09-10 02:44:57.977678 - [ERROR] - Error loading data into issues_dimension: Constraint Error: Duplicate key "issue_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-10 02:44:57.987785 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
