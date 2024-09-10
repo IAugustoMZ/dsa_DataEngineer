@@ -1,6 +1,7 @@
 import os
 import json
 import duckdb
+import pandas as pd
 from services.logger import Logger
 from .etl_services import ETLServiceHandler
 
@@ -17,7 +18,7 @@ with open(os.path.join(ROOT_DIR, 'data_models', 'data_mart_schema.json'), 'r') a
 class DataMartServiceHandler(ETLServiceHandler):
 
     # map of queries to extract from transaction data and load into the data mart
-    queries = {
+    queries_primary_dimensions = {
         "production_line_dimension": {
             "extract": """SELECT DISTINCT id_linha, linha
                         FROM internal_ncs
@@ -72,6 +73,36 @@ class DataMartServiceHandler(ETLServiceHandler):
                             END AS state_code
                         FROM raw_state""",
             "load": """INSERT INTO state_dimension (state_id, state_name, state_code) VALUES (?, ?, ?)"""
+        },
+        "complaint_type_dimension":{
+            "extract": """WITH raw_complaint_type AS (
+                            SELECT DISTINCT tipo_reclamacao 
+                            FROM transactions.main.external_ncs
+                        )
+                        SELECT ROW_NUMBER() OVER (ORDER BY tipo_reclamacao) AS complaint_type_id, 
+                            tipo_reclamacao AS type_description  
+                        FROM raw_complaint_type """,
+            "load": """INSERT INTO complaint_type_dimension (complaint_type_id, complaint_type_name) VALUES (?, ?)"""
+        },
+        "issues_dimension":{
+            "extract": """SELECT DISTINCT id_motivo, motivo, mao_de_obra, materia_prima,
+                            maquina, meio_ambiente, 
+                            medicao, metodo, recorrente 
+                        FROM transactions.main.internal_ncs
+                        ORDER BY id_motivo;""",
+            "load": """INSERT INTO issues_dimension (issue_id, issue_name, is_labour, is_raw_material, is_machine, is_env, is_measure, is_method, is_recurrent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"""
+        }
+    }
+
+    queries_secondary_dimensions = {
+        "city_dimension":{
+            "extract_1": """SELECT DISTINCT id_cidade, cidade, TRIM(estado) AS state
+                            FROM transactions.main.external_ncs
+                            ORDER BY id_cidade;""",
+            "extract_2": """SELECT * 
+                            FROM sink_data_mart.main.state_dimension;
+                            """,
+            "load": """INSERT INTO city_dimension (city_id, city_name, state_fk) VALUES (?, ?, ?)"""
         }
     }
 
@@ -132,7 +163,7 @@ class DataMartServiceHandler(ETLServiceHandler):
             self.conn.execute(query)
             self.conn.commit()
 
-    def load_data_mart(self, table_name: str) -> None:
+    def load_data_mart_primary_dimensions(self, table_name: str) -> None:
         """
         load data into the data mart
 
@@ -145,8 +176,8 @@ class DataMartServiceHandler(ETLServiceHandler):
         logger.log(f"Loading data into {table_name}")
 
         # get the queries
-        query_extract = self.queries[table_name]['extract']
-        query_load = self.queries[table_name]['load']
+        query_extract = self.queries_primary_dimensions[table_name]['extract']
+        query_load = self.queries_primary_dimensions[table_name]['load']
 
         # establish connection to the source database
         conn_source = duckdb.connect(os.path.join(ROOT_DIR, 'data', 'databases', 'transactions.db'))
@@ -162,8 +193,40 @@ class DataMartServiceHandler(ETLServiceHandler):
         except Exception as e:
             logger.error(f"Error loading data into {table_name}: {e}")
 
-            
+    def load_data_mart_secondary_dimensions_city(self) -> None:
+        """
+        loads data into the city dimension
+        """
 
+        # perform both extracts
+        query_extract_1 = self.queries_secondary_dimensions['city_dimension']['extract_1']
+        query_extract_2 = self.queries_secondary_dimensions['city_dimension']['extract_2']
+        query_load = self.queries_secondary_dimensions['city_dimension']['load']
+
+        # establish connection to the source database
+        conn_source = duckdb.connect(os.path.join(ROOT_DIR, 'data', 'databases', 'transactions.db'))
+        conn_sink = duckdb.connect(os.path.join(ROOT_DIR, 'data', 'databases', 'sink_data_mart.db'))
+
+        # extract data
+        try:
+            data_1 = pd.DataFrame(conn_source.execute(query_extract_1).fetchall(),
+                                  columns=['city_id', 'city_name', 'state_fk'])
+            data_2 = conn_sink.execute(query_extract_2).fetchall()
+
+            # create a map of state names to state ids
+            state_map = {state[1]: state[0] for state in data_2}
+
+            # map the state names to the state ids
+            data_1['state_fk'] = data_1['state_fk'].map(state_map)
+
+            # transform the data frame into a list of tuples
+            data_1 = [tuple(x) for x in data_1.to_numpy()]
+
+            # load data
+            conn_sink.executemany(query_load, data_1)
+            conn_sink.commit()
+        except Exception as e:
+            logger.error(f"Error loading data into city dimension: {e}")
             
 
 

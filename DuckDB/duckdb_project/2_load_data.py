@@ -16,7 +16,11 @@ logger = Logger()
 data_mart = DataMartServiceHandler()
 
 # start loading the data mart
-logger.log("Starting to load the data mart")
+logger.log("Starting to load the data mart - Primary Dimensions")
 
-for table in data_mart.queries:
-    data_mart.load_data_mart(table)
+for table in data_mart.queries_primary_dimensions:
+    data_mart.load_data_mart_primary_dimensions(table)
+
+# load the secondary dimensions
+logger.log("Starting to load the data mart - Secondary Dimensions - City")
+data_mart.load_data_mart_secondary_dimensions_city()
