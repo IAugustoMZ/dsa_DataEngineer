@@ -24,3 +24,10 @@ for table in data_mart.queries_primary_dimensions:
 # load the secondary dimensions
 logger.log("Starting to load the data mart - Secondary Dimensions - City")
 data_mart.load_data_mart_secondary_dimensions_city()
+
+# load the fact tables
+logger.log("Starting to load the data mart - Fact Tables - Internal Non-Conformities")
+data_mart.load_internal_ncs_fact()
+
+logger.log("Starting to load the data mart - Fact Tables - External Non-Conformities")
+data_mart.load_external_ncs_fact()

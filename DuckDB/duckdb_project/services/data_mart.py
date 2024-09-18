@@ -91,6 +91,15 @@ class DataMartServiceHandler(ETLServiceHandler):
                         FROM transactions.main.internal_ncs
                         ORDER BY id_motivo;""",
             "load": """INSERT INTO issues_dimension (issue_id, issue_name, is_labour, is_raw_material, is_machine, is_env, is_measure, is_method, is_recurrent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"""
+        },
+        "product_dimension":{
+            "extract": """SELECT DISTINCT incs.id_produto, incs.produto_nome, encs.categoria, 
+                                cost.custo_producao, incs.id_linha
+                            FROM transactions.main.internal_ncs incs
+                                JOIN transactions.main.external_ncs encs ON incs.id_produto = encs.id_produto
+                                JOIN transactions.main.cost_product cost ON incs.id_produto = cost.id_produto
+                            ORDER BY incs.id_produto""",
+            "load": """INSERT INTO product_dimension (product_id, product_name, product_category, prod_line_fk, product_cost) VALUES (?, ?, ?, ?, ?)"""
         }
     }
 
@@ -106,6 +115,28 @@ class DataMartServiceHandler(ETLServiceHandler):
         }
     }
 
+    queries_facts = {
+        "internal_ncs_fact":{
+            "extract": """SELECT ROW_NUMBER () OVER (ORDER BY date) AS id,
+                            date, id_produto AS prod_id_fk,
+                            id_identificacaoNC AS process_step_fk,
+                            id_motivo AS issues_fk, quantidadeNC AS qty_ncs 
+                        FROM transactions.main.internal_ncs""",
+            "load": """INSERT INTO internal_ncs_fact (internal_nc_id, date, prod_id_fk, process_step_fk, issues_fk, qty_ncs) VALUES (?, ?, ?, ?, ?, ?)"""
+        },
+        "external_ncs_fact":{
+            "extract_1": """SELECT ROW_NUMBER() OVER (ORDER BY data) AS id,
+                            "data" AS date_complaint, id_produto AS product_fk,
+                            id_cidade AS city_fk, data_fabricacao AS fabrication_date,
+                            id_motivo AS issue_fk, tipo_reclamacao AS type_fk,
+                            quantidade AS qty_ncs
+                        FROM transactions.main.external_ncs""",
+            "extract_2": """SELECT * 
+                            FROM sink_data_mart.main.complaint_type_dimension;""",
+            "load": """INSERT INTO external_ncs_fact (external_nc_id, date_complaint, product_fk, city_fk, fabrication_date, issue_fk, type_fk, qty_ncs) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"""
+        }
+    }
+
     def __init__(self) -> None:
         """
         class to handle all data mart operations
@@ -113,6 +144,62 @@ class DataMartServiceHandler(ETLServiceHandler):
         super().__init__()
         # get the data mart path
         self.data_mart_path = os.path.join(ROOT_DIR, 'data', 'databases')
+
+    def load_internal_ncs_fact(self) -> None:
+        """
+        loads data into the internal ncs fact table
+        """
+        # extract data
+        query_extract = self.queries_facts['internal_ncs_fact']['extract']
+        query_load = self.queries_facts['internal_ncs_fact']['load']
+
+        # establish connection to the source database
+        conn_source = duckdb.connect(os.path.join(ROOT_DIR, 'data', 'databases', 'transactions.db'))
+        conn_sink = duckdb.connect(os.path.join(ROOT_DIR, 'data', 'databases', 'sink_data_mart.db'))
+
+        # extract data
+        try:
+            data = conn_source.execute(query_extract).fetchall()
+
+            # load data
+            conn_sink.executemany(query_load, data)
+            conn_sink.commit()
+        except Exception as e:
+            logger.error(f"Error loading data into internal ncs fact: {e}")
+
+    def load_external_ncs_fact(self) -> None:
+        """
+        loads data into the external ncs fact table
+        """
+        # extract data
+        query_extract_1 = self.queries_facts['external_ncs_fact']['extract_1']
+        query_extract_2 = self.queries_facts['external_ncs_fact']['extract_2']
+        query_load = self.queries_facts['external_ncs_fact']['load']
+
+        # establish connection to the source database
+        conn_source = duckdb.connect(os.path.join(ROOT_DIR, 'data', 'databases', 'transactions.db'))
+        conn_sink = duckdb.connect(os.path.join(ROOT_DIR, 'data', 'databases', 'sink_data_mart.db'))
+
+        # extract data
+        try:
+            data_1 = pd.DataFrame(conn_source.execute(query_extract_1).fetchall(),
+                                  columns=['id', 'date_complaint', 'product_fk', 'city_fk', 'fabrication_date', 'issue_fk', 'type_fk', 'qty_ncs'])
+            data_2 = conn_sink.execute(query_extract_2).fetchall()
+
+            # create a map of product names to product ids
+            complaint_type_map = {complaint_type[1]: complaint_type[0] for complaint_type in data_2}
+
+            # map the product names to the product ids
+            data_1['type_fk'] = data_1['type_fk'].map(complaint_type_map)
+
+            # transform the data frame into a list of tuples
+            data_1 = [tuple(x) for x in data_1.to_numpy()]
+
+            # load data
+            conn_sink.executemany(query_load, data_1)
+            conn_sink.commit()
+        except Exception as e:
+            logger.error(f"Error loading data into external ncs fact: {e}")
 
     def create_sink_data_mart(self, data_mart_name: str) -> None:
         """
@@ -135,26 +222,11 @@ class DataMartServiceHandler(ETLServiceHandler):
             logger.log(f"Creating table {table}")
             cols = ''
             for col in data_mart_schema['tables'][table]:
-                if col != 'foreign_key':
-                    cols += f"{col} {data_mart_schema['tables'][table][col]['type']}"
-
-                    # check if the column is a primary key
-                    if 'primary_key' in data_mart_schema['tables'][table][col]:
-                        cols += ' PRIMARY KEY'
-                    
-                    # check if the column is the last column
-                    if col != list(data_mart_schema['tables'][table].keys())[-1]:
-                        cols += ', '
-
-            # check if the table has a foreign key
-            if 'foreign_key' in data_mart_schema['tables'][table]:
+                cols += f"{col} {data_mart_schema['tables'][table][col]['type']}"
                 
-                for fk in data_mart_schema['tables'][table]['foreign_key']:
-                    # check if the fk is the first fk
-                    if fk == list(data_mart_schema['tables'][table]['foreign_key'].keys())[0]:
-                        cols += f"FOREIGN KEY ({fk}) REFERENCES {data_mart_schema['tables'][table]['foreign_key'][fk]['table']}({data_mart_schema['tables'][table]['foreign_key'][fk]['column']})"
-                    else:
-                        cols += f", FOREIGN KEY ({fk}) REFERENCES {data_mart_schema['tables'][table]['foreign_key'][fk]['table']}({data_mart_schema['tables'][table]['foreign_key'][fk]['column']})"
+                # check if the column is the last column
+                if col != list(data_mart_schema['tables'][table].keys())[-1]:
+                    cols += ', '
 
             # format the query
             query = base_query.format(table_name=table, columns=cols)

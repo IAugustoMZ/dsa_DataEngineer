@@ -1,0 +1,143 @@
+2024-09-17 23:06:32.700223 - [INFO] - Getting data sources and transaction data path
+2024-09-17 23:06:32.702123 - [INFO] - Creating the sink database
+2024-09-17 23:06:32.783017 - [INFO] - Creating table production_line_dimension
+2024-09-17 23:06:32.841176 - [INFO] - Creating table state_dimension
+2024-09-17 23:06:32.901755 - [INFO] - Creating table complaint_type_dimension
+2024-09-17 23:06:32.937179 - [INFO] - Creating table process_steps_dimension
+2024-09-17 23:06:32.972908 - [INFO] - Creating table city_dimension
+2024-09-17 23:06:33.042916 - [INFO] - Creating table product_dimension
+2024-09-17 23:06:33.125071 - [INFO] - Creating table issues_dimension
+2024-09-17 23:06:33.161045 - [INFO] - Creating table internal_ncs_fact
+2024-09-17 23:06:33.197476 - [INFO] - Creating table external_ncs_fact
+2024-09-17 23:06:44.736576 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:06:44.738143 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:06:53.306995 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:06:53.308732 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:06:54.186240 - [INFO] - Loading data into process_steps_dimension
+2024-09-17 23:06:54.748475 - [INFO] - Loading data into state_dimension
+2024-09-17 23:06:55.939768 - [INFO] - Loading data into complaint_type_dimension
+2024-09-17 23:06:56.213705 - [INFO] - Loading data into issues_dimension
+2024-09-17 23:06:59.794225 - [INFO] - Loading data into product_dimension
+2024-09-17 23:07:12.814399 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:07:12.816422 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:07:12.869234 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:07:12.882713 - [INFO] - Loading data into process_steps_dimension
+2024-09-17 23:07:12.940429 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:07:12.952093 - [INFO] - Loading data into state_dimension
+2024-09-17 23:07:12.995168 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:07:13.006537 - [INFO] - Loading data into complaint_type_dimension
+2024-09-17 23:07:13.053447 - [ERROR] - Error loading data into complaint_type_dimension: Constraint Error: Duplicate key "complaint_type_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:07:13.063927 - [INFO] - Loading data into issues_dimension
+2024-09-17 23:07:13.110196 - [ERROR] - Error loading data into issues_dimension: Constraint Error: Duplicate key "issue_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:07:13.124399 - [INFO] - Loading data into product_dimension
+2024-09-17 23:07:14.563423 - [ERROR] - Error loading data into product_dimension: Binder Error: Table "product_dimension" does not have a column with name "production_line_fk"
+2024-09-17 23:07:14.574266 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-17 23:07:43.003321 - [INFO] - Getting data sources and transaction data path
+2024-09-17 23:07:43.004901 - [INFO] - Creating the sink database
+2024-09-17 23:07:43.135755 - [INFO] - Creating table production_line_dimension
+2024-09-17 23:07:43.192635 - [INFO] - Creating table state_dimension
+2024-09-17 23:07:43.264070 - [INFO] - Creating table complaint_type_dimension
+2024-09-17 23:07:43.299353 - [INFO] - Creating table process_steps_dimension
+2024-09-17 23:07:43.324524 - [INFO] - Creating table city_dimension
+2024-09-17 23:07:43.360578 - [INFO] - Creating table product_dimension
+2024-09-17 23:07:43.396274 - [INFO] - Creating table issues_dimension
+2024-09-17 23:07:43.460404 - [INFO] - Creating table internal_ncs_fact
+2024-09-17 23:07:43.500386 - [INFO] - Creating table external_ncs_fact
+2024-09-17 23:07:45.498719 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:07:45.500184 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:07:46.433991 - [INFO] - Loading data into process_steps_dimension
+2024-09-17 23:07:46.987253 - [INFO] - Loading data into state_dimension
+2024-09-17 23:07:48.126745 - [INFO] - Loading data into complaint_type_dimension
+2024-09-17 23:07:48.388137 - [INFO] - Loading data into issues_dimension
+2024-09-17 23:07:51.884591 - [INFO] - Loading data into product_dimension
+2024-09-17 23:07:53.289508 - [ERROR] - Error loading data into product_dimension: Binder Error: Table "product_dimension" does not have a column with name "production_cost"
+2024-09-17 23:07:53.298186 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-17 23:08:07.388759 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:08:07.390539 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:08:07.432417 - [ERROR] - Error loading data into production_line_dimension: Constraint Error: Duplicate key "production_line_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:08:07.441998 - [INFO] - Loading data into process_steps_dimension
+2024-09-17 23:08:07.482933 - [ERROR] - Error loading data into process_steps_dimension: Constraint Error: Duplicate key "process_step_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:08:07.492614 - [INFO] - Loading data into state_dimension
+2024-09-17 23:08:07.534895 - [ERROR] - Error loading data into state_dimension: Constraint Error: Duplicate key "state_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:08:07.543958 - [INFO] - Loading data into complaint_type_dimension
+2024-09-17 23:08:07.580423 - [ERROR] - Error loading data into complaint_type_dimension: Constraint Error: Duplicate key "complaint_type_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:08:07.589226 - [INFO] - Loading data into issues_dimension
+2024-09-17 23:08:07.631163 - [ERROR] - Error loading data into issues_dimension: Constraint Error: Duplicate key "issue_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:08:07.643755 - [INFO] - Loading data into product_dimension
+2024-09-17 23:08:09.203845 - [ERROR] - Error loading data into product_dimension: Constraint Error: Duplicate key "product_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:08:09.381117 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-17 23:08:09.431967 - [ERROR] - Error loading data into city dimension: Constraint Error: Duplicate key "city_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:08:24.131947 - [INFO] - Getting data sources and transaction data path
+2024-09-17 23:08:24.133400 - [INFO] - Creating the sink database
+2024-09-17 23:08:24.168227 - [INFO] - Creating table production_line_dimension
+2024-09-17 23:08:24.227547 - [INFO] - Creating table state_dimension
+2024-09-17 23:08:24.287817 - [INFO] - Creating table complaint_type_dimension
+2024-09-17 23:08:24.323677 - [INFO] - Creating table process_steps_dimension
+2024-09-17 23:08:24.359121 - [INFO] - Creating table city_dimension
+2024-09-17 23:08:24.384157 - [INFO] - Creating table product_dimension
+2024-09-17 23:08:24.419505 - [INFO] - Creating table issues_dimension
+2024-09-17 23:08:24.444099 - [INFO] - Creating table internal_ncs_fact
+2024-09-17 23:08:24.480324 - [INFO] - Creating table external_ncs_fact
+2024-09-17 23:08:26.889952 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:08:26.891404 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:08:27.794364 - [INFO] - Loading data into process_steps_dimension
+2024-09-17 23:08:28.382364 - [INFO] - Loading data into state_dimension
+2024-09-17 23:08:29.546370 - [INFO] - Loading data into complaint_type_dimension
+2024-09-17 23:08:29.809650 - [INFO] - Loading data into issues_dimension
+2024-09-17 23:08:32.706788 - [INFO] - Loading data into product_dimension
+2024-09-17 23:08:34.203019 - [ERROR] - Error loading data into product_dimension: Constraint Error: Duplicate key "product_id: 1" violates primary key constraint. If this is an unexpected constraint violation please double check with the known index limitations section in our documentation (https://duckdb.org/docs/sql/indexes).
+2024-09-17 23:08:34.348763 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-17 23:27:22.950002 - [INFO] - Getting data sources and transaction data path
+2024-09-17 23:27:22.951266 - [INFO] - Creating the sink database
+2024-09-17 23:27:23.082420 - [INFO] - Creating table production_line_dimension
+2024-09-17 23:27:23.151206 - [INFO] - Creating table state_dimension
+2024-09-17 23:27:23.211417 - [INFO] - Creating table complaint_type_dimension
+2024-09-17 23:27:23.272270 - [INFO] - Creating table process_steps_dimension
+2024-09-17 23:27:23.308515 - [INFO] - Creating table city_dimension
+2024-09-17 23:27:23.343809 - [INFO] - Creating table product_dimension
+2024-09-17 23:27:23.378906 - [INFO] - Creating table issues_dimension
+2024-09-17 23:27:23.403652 - [INFO] - Creating table internal_ncs_fact
+2024-09-17 23:27:23.439562 - [INFO] - Creating table external_ncs_fact
+2024-09-17 23:27:27.081678 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:27:27.083087 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:27:27.971024 - [INFO] - Loading data into process_steps_dimension
+2024-09-17 23:27:28.539554 - [INFO] - Loading data into state_dimension
+2024-09-17 23:27:29.604422 - [INFO] - Loading data into complaint_type_dimension
+2024-09-17 23:27:29.868655 - [INFO] - Loading data into issues_dimension
+2024-09-17 23:27:33.219410 - [INFO] - Loading data into product_dimension
+2024-09-17 23:27:40.798419 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-17 23:45:13.169632 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:45:13.171591 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:45:33.882693 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:45:33.884833 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:45:34.864217 - [INFO] - Loading data into process_steps_dimension
+2024-09-17 23:45:35.419340 - [INFO] - Loading data into state_dimension
+2024-09-17 23:45:36.600334 - [INFO] - Loading data into complaint_type_dimension
+2024-09-17 23:45:36.904166 - [INFO] - Loading data into issues_dimension
+2024-09-17 23:45:40.915988 - [INFO] - Loading data into product_dimension
+2024-09-17 23:45:49.866393 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-17 23:45:53.687600 - [INFO] - Starting to load the data mart - Fact Tables - Internal Non-Conformities
+2024-09-17 23:45:53.758194 - [ERROR] - Error loading data into internal ncs fact: Binder Error: Table "internal_ncs_fact" does not have a column with name "id"
+2024-09-17 23:45:53.769941 - [INFO] - Starting to load the data mart - Fact Tables - External Non-Conformities
+2024-09-17 23:47:12.912094 - [INFO] - Getting data sources and transaction data path
+2024-09-17 23:47:12.913640 - [INFO] - Creating the sink database
+2024-09-17 23:47:13.044244 - [INFO] - Creating table production_line_dimension
+2024-09-17 23:47:13.103251 - [INFO] - Creating table state_dimension
+2024-09-17 23:47:13.164139 - [INFO] - Creating table complaint_type_dimension
+2024-09-17 23:47:13.223770 - [INFO] - Creating table process_steps_dimension
+2024-09-17 23:47:13.258514 - [INFO] - Creating table city_dimension
+2024-09-17 23:47:13.293764 - [INFO] - Creating table product_dimension
+2024-09-17 23:47:13.329941 - [INFO] - Creating table issues_dimension
+2024-09-17 23:47:13.365504 - [INFO] - Creating table internal_ncs_fact
+2024-09-17 23:47:13.401326 - [INFO] - Creating table external_ncs_fact
+2024-09-17 23:47:15.706694 - [INFO] - Starting to load the data mart - Primary Dimensions
+2024-09-17 23:47:15.708422 - [INFO] - Loading data into production_line_dimension
+2024-09-17 23:47:16.642305 - [INFO] - Loading data into process_steps_dimension
+2024-09-17 23:47:17.328615 - [INFO] - Loading data into state_dimension
+2024-09-17 23:47:18.512518 - [INFO] - Loading data into complaint_type_dimension
+2024-09-17 23:47:18.819408 - [INFO] - Loading data into issues_dimension
+2024-09-17 23:47:23.038334 - [INFO] - Loading data into product_dimension
+2024-09-17 23:47:31.890909 - [INFO] - Starting to load the data mart - Secondary Dimensions - City
+2024-09-17 23:47:35.701378 - [INFO] - Starting to load the data mart - Fact Tables - Internal Non-Conformities
+2024-09-17 23:56:56.666536 - [INFO] - Starting to load the data mart - Fact Tables - External Non-Conformities
+2024-09-17 23:56:56.832522 - [ERROR] - Error loading data into external ncs fact: Binder Error: Table "external_ncs_fact" does not have a column with name "external_ncs_id"

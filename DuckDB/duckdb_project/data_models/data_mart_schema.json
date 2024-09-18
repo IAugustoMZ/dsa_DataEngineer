@@ -2,8 +2,7 @@
     "tables":{
         "production_line_dimension":{
             "production_line_id": {
-                "type": "INTEGER",
-                "primary_key": true
+                "type": "INTEGER"
             },
             "production_line_name": {
                 "type": "TEXT"
@@ -11,8 +10,7 @@
         },
         "state_dimension":{
             "state_id": {
-                "type": "INTEGER",
-                "primary_key": true
+                "type": "INTEGER"
             },
             "state_name": {
                 "type": "TEXT"
@@ -23,8 +21,7 @@
         },
         "complaint_type_dimension":{
             "complaint_type_id": {
-                "type": "INTEGER",
-                "primary_key": true
+                "type": "INTEGER"
             },
             "complaint_type_name": {
                 "type": "TEXT"
@@ -32,8 +29,7 @@
         },
         "process_steps_dimension":{
             "process_step_id": {
-                "type": "INTEGER",
-                "primary_key": true
+                "type": "INTEGER"
             },
             "process_step_name": {
                 "type": "TEXT"
@@ -41,26 +37,18 @@
         },
         "city_dimension":{
             "city_id": {
-                "type": "INTEGER",
-                "primary_key": true
+                "type": "INTEGER"
             },
             "city_name": {
                 "type": "TEXT"
             },
             "state_fk": {
                 "type": "INTEGER"
-            },
-            "foreign_key": {
-                "state_fk":{
-                    "table": "state_dimension",
-                    "column": "state_id"
-                }
             }
         },
         "product_dimension":{
             "product_id": {
-                "type": "INTEGER",
-                "primary_key": true
+                "type": "INTEGER"
             },
             "product_name": {
                 "type": "TEXT"
@@ -71,23 +59,13 @@
             "product_cost": {
                 "type": "NUMERIC"
             },
-            "product_validity_months": {
-                "type": "INTEGER"
-            },
             "prod_line_fk": {
                 "type": "INTEGER"
-            },
-            "foreign_key": {
-                "prod_line_fk":{
-                    "table": "production_line_dimension",
-                    "column": "production_line_id"
-                }
             }
         },
         "issues_dimension":{
             "issue_id": {
-                "type": "INTEGER",
-                "primary_key": true
+                "type": "INTEGER"
             },
             "issue_name": {
                 "type": "TEXT"
@@ -116,8 +94,7 @@
         },
         "internal_ncs_fact":{
             "internal_nc_id": {
-                "type": "INTEGER",
-                "primary_key": true
+                "type": "INTEGER"
             },
             "date": {
                 "type": "DATE"
@@ -133,31 +110,16 @@
             },
             "issues_fk":{
                 "type": "INTEGER"
-            },
-            "foreign_key": {
-                "prod_id_fk":{
-                    "table": "product_dimension",
-                    "column": "product_id"
-                },
-                "process_step_fk":{
-                    "table": "process_steps_dimension",
-                    "column": "process_step_id"
-                },
-                "issues_fk":{
-                    "table": "issues_dimension",
-                    "column": "issue_id"
-                }
             }
         },
         "external_ncs_fact":{
             "external_nc_id": {
-                "type": "INTEGER",
-                "primary_key": true
+                "type": "INTEGER"
             },
             "date_complaint":{
                 "type": "DATE"
             },
-            "fabricatiton_date":{
+            "fabrication_date":{
                 "type": "DATE"
             },
             "qty_ncs": {
@@ -174,24 +136,6 @@
             },
             "type_fk":{
                 "type": "INTEGER"
-            },
-            "foreign_key": {
-                "product_fk":{
-                    "table": "product_dimension",
-                    "column": "product_id"
-                },
-                "city_fk":{
-                    "table": "city_dimension",
-                    "column": "city_id"
-                },
-                "issue_fk":{
-                    "table": "issues_dimension",
-                    "column": "issue_id"
-                },
-                "type_fk":{
-                    "table": "complaint_type_dimension",
-                    "column": "complaint_type_id"
-                }
             }
         }
     }
