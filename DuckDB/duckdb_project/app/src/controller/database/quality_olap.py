@@ -71,12 +71,86 @@ class QualityDatabaseQueryHandler:
         WHERE f.date BETWEEN '{filter.start_date}' AND '{filter.end_date}'
         """
         if filter.production_line != 'All':
-            base_query += f' AND production_line_name = "{filter.production_line}"'
-        if filter.product != 'All':
-            base_query += f' AND product_name = "{filter.product}"'
+            base_query += f" AND production_line_name = '{filter.production_line}'"
         
         data = self.connection.execute(base_query).fetchdf().iloc[0, 0]
         if str(data).lower() == 'nan':
             return '-'
         else:
             return int(data)
+
+    def get_total_defects_cost(self, filter: Filter) -> int:
+        """
+        gets the total cost of defects
+
+        Args:
+        -----
+        filter (Filter):
+            filter object
+
+        Returns:
+        --------
+        int:
+            total cost of defects
+        """
+        base_query = f"""
+        SELECT SUM(f.qty_ncs * p.product_cost) AS nc_cost
+        FROM sink_data_mart.main.internal_ncs_fact f
+            INNER JOIN sink_data_mart.main.product_dimension p
+                ON f.prod_id_fk = p.product_id
+            INNER JOIN sink_data_mart.main.production_line_dimension pl
+                ON p.prod_line_fk = pl.production_line_id
+        WHERE f.date BETWEEN '{filter.start_date}' AND '{filter.end_date}'
+        """
+        if filter.production_line != 'All':
+            base_query += f" AND pl.production_line_name = '{filter.production_line}'"
+        
+        data = self.connection.execute(base_query).fetchdf().iloc[0, 0]
+        if str(data).lower() == 'nan':
+            return '-'
+        else:
+            return int(data)
+
+    def get_evolution_defects(self, filter: Filter) -> list:
+        """
+        gets the evolution of defects
+
+        Args:
+        -----
+        filter (Filter):
+            filter object
+
+        Returns:
+        --------
+        list:
+            list of defects evolution
+        """
+        if filter.start_date[:7] != filter.end_date[:7]:
+            base_query = f"""
+            SELECT CONCAT(MONTH(f.date), ' - ', YEAR(f.date)) as date, SUM(f.qty_ncs) AS total_ncs
+            FROM sink_data_mart.main.internal_ncs_fact f
+                INNER JOIN sink_data_mart.main.product_dimension p
+                    ON f.prod_id_fk = p.product_id
+                INNER JOIN sink_data_mart.main.production_line_dimension pl
+                    ON p.prod_line_fk = pl.production_line_id
+            WHERE f.date BETWEEN '{filter.start_date}' AND '{filter.end_date}'
+            """
+            if filter.production_line != 'All':
+                base_query += f" AND pl.production_line_name = '{filter.production_line}'"
+        else:
+            base_query = f"""
+            SELECT f.date as date, SUM(f.qty_ncs) AS total_ncs
+            FROM sink_data_mart.main.internal_ncs_fact f
+                INNER JOIN sink_data_mart.main.product_dimension p
+                    ON f.prod_id_fk = p.product_id
+                INNER JOIN sink_data_mart.main.production_line_dimension pl
+                    ON p.prod_line_fk = pl.production_line_id
+            WHERE f.date BETWEEN '{filter.start_date}' AND '{filter.end_date}'
+            """
+            if filter.production_line != 'All':
+                base_query += f" AND pl.production_line_name = '{filter.production_line}'"
+        
+        base_query += ' GROUP BY date'
+
+        data = self.connection.execute(base_query).fetchdf()
+        return data
