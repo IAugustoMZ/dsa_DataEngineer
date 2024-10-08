@@ -1,124 +1,128 @@
 import pandas as pd
 import streamlit as st
+import plotly.express as px
 from src.auth.auth import AuthHandler
 from src.model.filters.filter import Filter
 from src.controller.database.quality_olap import QualityDatabaseQueryHandler
 
 class AppPagesViews:
-    def __init__(self):
+    def __init__(self, query_handler: QualityDatabaseQueryHandler) -> None:
         """
         app pages views
-        """
-        self.database_handler = QualityDatabaseQueryHandler()
 
-    def login_page(self) -> None:
+        Parameters
+        ----------
+        query_handler : QualityDatabaseQueryHandler
+            query handler
         """
-        login page
-        """
-        st.title('Login')
-        username = st.text_input('Username')
-        password = st.text_input('Password', type='password')
-        if st.button('Login'):
-            auth_handler = AuthHandler()
-            if auth_handler.login(username, password):
-                st.success('Login successful')
-                st.session_state.logged_in = True
-                st.rerun()
-            else:
-                st.error('Invalid username or password')
+        self.query_handler = query_handler
     
     def main_screen(self) -> None:
         """
         main screen
         """
-        # side bar report options
-        st.sidebar.title('Navigation')
-        start_date = st.sidebar.date_input('Start Date').strftime('%Y-%m-%d') 
-        end_date = st.sidebar.date_input('End Date').strftime('%Y-%m-%d') 
 
-        # get production line and product
-        production_lines = self.database_handler.get_production_line()
-        production_line = st.sidebar.selectbox('Production Line', production_lines)
+        # sidebar
+        st.sidebar.title('Quality Management System')
+        st.sidebar.markdown('---')
+        st.sidebar.title('Select Filters')
 
-        products = self.database_handler.get_products()
-        product = st.sidebar.selectbox('Product', products)
+        # date range
+        start_date = st.sidebar.date_input('Start Date').strftime('%Y-%m-%d')
+        end_date = st.sidebar.date_input('End Date').strftime('%Y-%m-%d')
 
-        # create and validate filter
-        filter = Filter(start_date=start_date, end_date=end_date, production_line=production_line, product=product)
-        print(filter)
+        # production line
+        production_lines = self.query_handler.get_production_line()
+        selected_production_line = st.sidebar.selectbox('Production Line', production_lines)
 
-        # create a small chat box so the user can interact with an LLM
-        st.sidebar.subheader('Chat with LLM')
-        message = st.sidebar.text_input('Message')
-        if st.sidebar.button('Send'):
-            # clean previous messages
-            st.sidebar.text('User: ' + message)
-
-            st.sidebar.text('LLM: Hi, how can I help you?')
-
-        # main screen
-        tab1, tab2 = st.tabs(['Internal Non-Conformities', 'External Non-Conformities'])
+        # standard main screen
+        st.title('Quality Management System')
+        st.markdown('---')
+        st.write('Please select the filters on the sidebar and click on the button below to apply the filter.')
 
         # fill tab 1
-        with tab1:
-            
-            # cards for non-conformities
-            col1, col2 = st.columns(2)
+        if st.sidebar.button('Apply Filter'):
 
-            total_ncs = self.database_handler.get_total_internal_ncs(filter)
+            # create filter
+            filter = Filter(start_date=start_date, end_date=end_date, production_line=selected_production_line)
 
-            col1.metric('Total Non-Conformities', total_ncs)
-            col2.metric('Total Defects Cost', 1000)
+            # main screen
+            tab1, tab2 = st.tabs(['Internal Non-Conformities', 'External Non-Conformities'])
 
-            # time evolution chart
-            st.subheader('Evolution of Defects in Time')
+            with tab1:
+                
+                # cards for non-conformities
+                col1, col2 = st.columns(2)
 
-            # find granularity
-            granularity = st.radio('Select Granularity', ['Yearly', 'Monthly', 'Daily'], horizontal=True, key='granularity')
+                # get total non-conformities
+                total_ncs = self.query_handler.get_total_internal_ncs(filter)
 
-            # plot chart
-            st.line_chart([1, 2, 3, 4, 5])
+                # metrics with 1000 formatting
+                if type(total_ncs) == int:
+                    col1.metric('Total Non-Conformities', f'{total_ncs:,}')
+                else:
+                    col1.metric('Total Non-Conformities', total_ncs)
+                
+                # get total defects cost
+                total_defects_cost = self.query_handler.get_total_defects_cost(filter)
 
-            # most defective product
-            st.subheader('Most Defective Product')
-            st.bar_chart([1, 2, 3, 4, 5])
+                # cost with USD XX.00 and , for 1000
+                if type(total_defects_cost) == int:
+                    col2.metric('Total Defects Cost', f'${total_defects_cost:,}')
+                else:
+                    col2.metric('Total Defects Cost', total_defects_cost)
 
-            # process responsibilities and motivations
-            st.subheader('Defects Distributions')
-            col1, col2 = st.columns(2)
-            col1.bar_chart([1, 2, 3, 4, 5])
+                # time evolution chart
+                st.subheader('Evolution of Defects in Time')
 
-            # defects distribution
-            col2.bar_chart([1, 2, 3, 4, 5])
+                # plot chart
 
-            # distribution of reasons
-            st.subheader('Distribution of Defects Motivations')
-            col1, col2 = st.columns(2)
-            reasons_8ms = {
-                'Man': 10, 'Machine': 15, 'Material': 20, 'Method': 5,
-                'Measurement': 10, 'Mother Nature': 8, 'Management': 12, 'Maintenance': 7
-            }
-            col1.bar_chart(pd.Series(reasons_8ms))
+                # get the evolution of defects
+                evolution = self.query_handler.get_evolution_defects(filter)
 
-            recurring_problems = {
-                'Yes': 20, 'No': 5
-            }
-            col2.bar_chart(pd.Series(recurring_problems))
+                # plot chart with date in the x-axis and total defects in the y-axis
+                st.plotly_chart(px.line(evolution, x='date', y='total_ncs', title='Evolution of Defects in Time'), use_container_width=True)
 
-        # fill tab 2
-        with tab2:
-            
-            # cards for non-conformities
-            col1, col2, col3 = st.columns(3)
-            col1.metric('Total Non-Conformities', 100)
-            col2.metric('Total Defects Cost', 1000)
-            col3.metric('Key Account Fraction', '50%')
+                # most defective product
+                st.subheader('Most Defective Product')
+                st.bar_chart([1, 2, 3, 4, 5])
 
-            # time evolution chart
-            st.subheader('Evolution of Defects in Time')
+                # process responsibilities and motivations
+                st.subheader('Defects Distributions')
+                col1, col2 = st.columns(2)
+                col1.bar_chart([1, 2, 3, 4, 5])
 
-            # most defective product
-            st.subheader('Most Defective Product')
+                # defects distribution
+                col2.bar_chart([1, 2, 3, 4, 5])
+
+                # distribution of reasons
+                st.subheader('Distribution of Defects Motivations')
+                col1, col2 = st.columns(2)
+                reasons_8ms = {
+                    'Man': 10, 'Machine': 15, 'Material': 20, 'Method': 5,
+                    'Measurement': 10, 'Mother Nature': 8, 'Management': 12, 'Maintenance': 7
+                }
+                col1.bar_chart(pd.Series(reasons_8ms))
+
+                recurring_problems = {
+                    'Yes': 20, 'No': 5
+                }
+                col2.bar_chart(pd.Series(recurring_problems))
+
+            # fill tab 2
+            with tab2:
+                
+                # cards for non-conformities
+                col1, col2, col3 = st.columns(3)
+                col1.metric('Total Non-Conformities', 100)
+                col2.metric('Total Defects Cost', 1000)
+                col3.metric('Key Account Fraction', '50%')
+
+                # time evolution chart
+                st.subheader('Evolution of Defects in Time')
+
+                # most defective product
+                st.subheader('Most Defective Product')
             st.bar_chart([1, 2, 3, 4, 5])
 
             # find granularity
@@ -156,18 +160,8 @@ class AppPagesViews:
             # plot map
             st.bar_chart([1, 2, 3, 4, 5])
 
-
-
-
     def show_pages(self) -> None:
         """
-        show pages based on session state
+        show pages
         """
-        # if 'logged_in' not in st.session_state:
-        #     st.session_state.logged_in = False
-
-        # if not st.session_state.logged_in:
-        #     self.login_page()
-        # else:
-        #     self.main_screen()
         self.main_screen()

@@ -1,16 +1,19 @@
 {
     "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Streamlit App",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/app/app.py",
-            "args": [
-                "streamlit", "run"
-            ],
-            "console": "integratedTerminal",
-            "justMyCode": true
-        }
+    "configurations": [{
+         "name": "Python: Streamlit",
+         "type": "python",
+         "request": "launch",
+         "module": "streamlit",
+         "env": {
+             "STREAMLIT_APP": "app/app.py",
+             "STREAMLIT_ENV": "development",
+         },
+         "args": [
+             "run",
+             "app/app.py"
+         ],
+         "jinja": true
+     }
     ]
-}
+ }
