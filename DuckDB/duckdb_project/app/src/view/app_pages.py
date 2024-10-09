@@ -81,19 +81,40 @@ class AppPagesViews:
                 evolution = self.query_handler.get_evolution_defects(filter)
 
                 # plot chart with date in the x-axis and total defects in the y-axis
-                st.plotly_chart(px.line(evolution, x='date', y='total_ncs', title='Evolution of Defects in Time'), use_container_width=True)
+                if len(evolution) > 0:
+                    st.plotly_chart(px.line(evolution, x='date', y='total_ncs', title='Evolution of Defects in Time'), use_container_width=True)
+                else:
+                    st.warning('No data available for the selected filters.')
 
                 # most defective product
                 st.subheader('Most Defective Product')
-                st.bar_chart([1, 2, 3, 4, 5])
+
+                # get most defective product
+                most_defective_product = self.query_handler.get_most_defective_product(filter)
+
+                if len(most_defective_product) > 0:
+                    n = most_defective_product.shape[0]
+                    st.plotly_chart(px.bar(most_defective_product, y='product_name', x='total_ncs', orientation='h', title=f'Most Defective Product ({n} products)'), use_container_width=True)
+                else:
+                    st.warning('No data available for the selected filters.')
 
                 # process responsibilities and motivations
                 st.subheader('Defects Distributions')
                 col1, col2 = st.columns(2)
-                col1.bar_chart([1, 2, 3, 4, 5])
+
+                # defects distribution by process step
+                defects_by_process_step = self.query_handler.get_defects_distribution_by_process_step(filter)
+                if len(defects_by_process_step) > 0:
+                    col1.plotly_chart(px.bar(defects_by_process_step, x='process_step_name', y='total_ncs', title='Defects Distribution by Process Step'), use_container_width=True)
+                else:
+                    st.warning('No data available for the selected filters.')
 
                 # defects distribution
-                col2.bar_chart([1, 2, 3, 4, 5])
+                defects_distribution_by_issues = self.query_handler.get_defects_distribution_by_issues(filter)
+                if len(defects_distribution_by_issues) > 0:
+                    col2.plotly_chart(px.bar(defects_distribution_by_issues, x='issue_name', y='total_ncs', title='Defects Distribution by Issues'), use_container_width=True)
+                else:
+                    st.warning('No data available for the selected filters.')
 
                 # distribution of reasons
                 st.subheader('Distribution of Defects Motivations')
@@ -123,42 +144,36 @@ class AppPagesViews:
 
                 # most defective product
                 st.subheader('Most Defective Product')
-            st.bar_chart([1, 2, 3, 4, 5])
+                st.bar_chart([1, 2, 3, 4, 5])
 
-            # find granularity
-            granularity = st.radio('Select Granularity', ['Yearly', 'Monthly', 'Daily'], horizontal=True)
+                # plot chart with two series
+                st.line_chart({
+                    'Internal': [1, 2, 3, 4, 5],
+                    'External': [5, 4, 3, 2, 1]
+                })
 
-            # plot chart with two series
-            st.line_chart({
-                'Internal': [1, 2, 3, 4, 5],
-                'External': [5, 4, 3, 2, 1]
-            })
+                # defects distributions
+                st.subheader('Evolution of Defects in Time')
 
-            # defects distributions
-            st.subheader('Evolution of Defects in Time')
+                # distribution of reasons
+                st.subheader('Distribution of Defects Motivations')
+                col1, col2 = st.columns(2)
+                reasons_8ms = {
+                    'Man': 10, 'Machine': 15, 'Material': 20, 'Method': 5,
+                    'Measurement': 10, 'Mother Nature': 8, 'Management': 12, 'Maintenance': 7
+                }
+                col1.bar_chart(pd.Series(reasons_8ms))
 
-            # distribution of reasons
-            st.subheader('Distribution of Defects Motivations')
-            col1, col2 = st.columns(2)
-            reasons_8ms = {
-                'Man': 10, 'Machine': 15, 'Material': 20, 'Method': 5,
-                'Measurement': 10, 'Mother Nature': 8, 'Management': 12, 'Maintenance': 7
-            }
-            col1.bar_chart(pd.Series(reasons_8ms))
+                recurring_problems = {
+                    'Yes': 20, 'No': 5
+                }
+                col2.bar_chart(pd.Series(recurring_problems))
 
-            recurring_problems = {
-                'Yes': 20, 'No': 5
-            }
-            col2.bar_chart(pd.Series(recurring_problems))
+                # geographical distribution
+                st.subheader('Geographical Analysis')
 
-            # geographical distribution
-            st.subheader('Geographical Analysis')
-
-            # toggle analysis by city or state
-            analysis_by = st.radio('Select Analysis', ['City', 'State'], key='geo', horizontal=True)
-
-            # plot map
-            st.bar_chart([1, 2, 3, 4, 5])
+                # plot map
+                st.bar_chart([1, 2, 3, 4, 5])
 
     def show_pages(self) -> None:
         """
