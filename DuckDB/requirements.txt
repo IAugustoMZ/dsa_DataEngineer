@@ -3,6 +3,8 @@ numpy==1.26.4
 pandas==2.2.2
 python-dotenv==0.19.1
 openpyxl
-streamlit
+dash
 plotly
 pydantic
+dash-bootstrap-components
+dash-core-components

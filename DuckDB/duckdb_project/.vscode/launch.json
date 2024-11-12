@@ -4,14 +4,10 @@
          "name": "Python: Streamlit",
          "type": "python",
          "request": "launch",
-         "module": "streamlit",
-         "env": {
-             "STREAMLIT_APP": "app/app.py",
-             "STREAMLIT_ENV": "development",
-         },
+         "program": "app/app.py",
          "args": [
-             "run",
-             "app/app.py"
+            "python",
+            "app/app.py"
          ],
          "jinja": true
      }

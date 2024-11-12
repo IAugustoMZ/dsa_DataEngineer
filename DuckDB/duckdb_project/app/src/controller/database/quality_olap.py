@@ -3,26 +3,14 @@ import duckdb
 import pandas as pd
 from src.model.filters.filter import Filter
 
-# get the project root directory
-ROOT_DIR = os.path.dirname(
-    os.path.dirname(
-        os.path.dirname(
-            os.path.dirname(
-                os.path.dirname(
-                    os.path.abspath(__file__)
-                )
-            )
-        )
-    )
-)
-
 # get the path to the database
-DATABASE_PATH = os.path.join(ROOT_DIR, 'data', 'databases','sink_data_mart.db')
+DATABASE_PATH = os.path.join('data', 'databases', 'sink_data_mart.db')
 
 class QualityDatabaseQueryHandler:
 
     def __init__(self):
-        self.connection = duckdb.connect(DATABASE_PATH)
+        duckdb.close()
+        self.connection = duckdb.connect(DATABASE_PATH, read_only=True)
 
     def get_production_line(self) -> list:
         """
