@@ -1,5 +1,4 @@
 import pandas as pd
-import streamlit as st
 import plotly.express as px
 from src.auth.auth import AuthHandler
 from src.model.filters.filter import Filter

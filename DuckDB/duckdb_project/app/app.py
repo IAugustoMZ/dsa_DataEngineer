@@ -1,26 +1,19 @@
-# Description: Main app file
-import streamlit as st
-from src.model.filters.filter import Filter
-from src.view.app_pages import AppPagesViews
-from src.controller.database.quality_olap import QualityDatabaseQueryHandler
+import dash
+import dash_bootstrap_components as dbc
 
-# query handler
-query_handler = QualityDatabaseQueryHandler()
+estilos = [
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/" +
+    "font-awesome.min.css",
+    "https://fonts.googleapis.com/icon?family=Material+Icons",
+    dbc.themes.CYBORG
+]
+dbc_css = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@" + \
+          "V1.0.4/dbc.min.css"
+# FONT_AWESOME = "https://use.fontawesome.com/releases/v5.10.2/css/all.css"
 
-# define main app
-def app_main() -> None:
 
-    # create the app pages
-    app_pages = AppPagesViews(query_handler=query_handler)
+app = dash.Dash(__name__, external_stylesheets=estilos + [dbc_css])
 
-    # main screen
-    app_pages.show_pages()
-
-        
-if __name__ == '__main__':
-
-    # set page config
-    st.set_page_config(page_title='Quality Management System', page_icon=':bar_chart:', layout='wide')
-    
-    # run app
-    app_main()
+app.config['suppress_callback_exceptions'] = True
+app.scripts.config.serve_locally = True
+server = app.server

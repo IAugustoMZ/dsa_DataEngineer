@@ -1,0 +1,59 @@
+body{
+    background-color: black;
+}
+
+.input-label{
+    padding: 5px;
+    font-size: 25px;
+}
+
+.title-primary{
+    font-size: 35px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.metric-card{
+    margin-top: 10px;
+}
+
+.card-title{
+    font-size: 30px;
+    text-align: center;
+}
+
+#title-card{
+    background-color: black;
+    margin-top: 10px;
+}
+
+#start-date{
+    padding: 10px;
+    margin: 10px;
+    width: 100px;
+}
+
+#end-date{
+    padding: 10px;
+    margin: 10px;
+    width: 100px;
+}
+
+#internal-link{
+    font-size: 25px;
+}
+
+#internal-link:hover{
+    background-color: rgba(0, 47, 255, 0.425);
+    color: blanchedalmond;
+}
+
+#external-link{
+    font-size: 25px;
+}
+
+#external-link:hover{
+    background-color: rgba(0, 47, 255, 0.425);
+    color: blanchedalmond;
+}
+
