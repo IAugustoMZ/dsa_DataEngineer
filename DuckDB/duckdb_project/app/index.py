@@ -41,7 +41,11 @@ def display_page(pathname):
 )
 def update_data(n_clicks, start_date, end_date, report_desired):
     if n_clicks is None:
-        return {}
+        return {
+            'start_date': '2020-01-01',
+            'end_date': '2020-12-31',
+            'report_desired': 'All'
+        }
     else:
         return {
             'start_date': start_date, 

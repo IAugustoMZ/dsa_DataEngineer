@@ -32,7 +32,7 @@ layout = dbc.Col([
                 dcc.DatePickerSingle(
                     id='start-date',
                     display_format='YYYY-MM-DD',
-                    date='2021-01-01'
+                    date='2020-01-01'
                 )
             ]),
             width=6 
@@ -43,7 +43,7 @@ layout = dbc.Col([
                 dcc.DatePickerSingle(
                     id='end-date',
                     display_format='YYYY-MM-DD',
-                    date='2021-12-31'
+                    date='2020-12-31'
                 )
             ]),
             width=6
