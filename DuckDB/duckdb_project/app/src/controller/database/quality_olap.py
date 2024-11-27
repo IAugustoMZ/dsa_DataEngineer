@@ -146,6 +146,10 @@ class QualityDatabaseQueryHandler:
             base_query += ' ORDER BY date'
 
         data = self.connection.execute(base_query).fetchdf()
+
+        # date come as string, we need to convert it to datetime
+        data['date'] = pd.to_datetime(data['date'])
+
         return data
     
     def get_most_defective_product(self, filter: Filter, top_k: int = 5) -> pd.DataFrame:
@@ -181,6 +185,10 @@ class QualityDatabaseQueryHandler:
         base_query += f' LIMIT {top_k}'
 
         data = self.connection.execute(base_query).fetchdf()
+
+        # sort the data by total_ncs
+        data = data.sort_values(by='total_ncs', ascending=False)
+
         return data
     
     def get_defects_distribution_by_process_step(self, filter: Filter, k: int = 5) -> pd.DataFrame:
@@ -213,10 +221,11 @@ class QualityDatabaseQueryHandler:
             base_query += f" AND pl.production_line_name = '{filter.production_line}'"
 
         base_query += ' GROUP BY ps.process_step_name'
-        base_query += ' ORDER BY total_ncs DESC'
+        base_query += ' ORDER BY total_ncs ASC'
         base_query += f' LIMIT {k}'
 
         data = self.connection.execute(base_query).fetchdf()
+
         return data
     
     def get_defects_distribution_by_issues(self, filter: Filter, k: int = 5) -> pd.DataFrame:
@@ -249,8 +258,100 @@ class QualityDatabaseQueryHandler:
             base_query += f" AND pl.production_line_name = '{filter.production_line}'"
 
         base_query += ' GROUP BY i.issue_name'
-        base_query += ' ORDER BY total_ncs DESC'
+        base_query += ' ORDER BY total_ncs ASC'
         base_query += f' LIMIT {k}'
 
         data = self.connection.execute(base_query).fetchdf()
+        return data
+    
+    def get_defects_distribution_by_recurring_issues(self, filter: Filter) -> pd.DataFrame:
+        """
+        query to get the defects distribution by 8M's root cause
+
+        Args:
+        -----
+        filter (Filter):
+            filter object
+
+        Returns:
+        --------
+        pd.DataFrame:
+            pd.DataFrame of the defects distribution by 8M's root cause
+        """
+        base_query = f"""SELECT i.is_recurrent, SUM(f.qty_ncs) AS total_ncs
+        FROM sink_data_mart.main.internal_ncs_fact f
+            INNER JOIN sink_data_mart.main.product_dimension p
+                ON f.prod_id_fk = p.product_id
+            INNER JOIN sink_data_mart.main.production_line_dimension pl
+                ON p.prod_line_fk = pl.production_line_id
+            INNER JOIN sink_data_mart.main.issues_dimension i
+                ON f.issues_fk = i.issue_id
+        WHERE f.date BETWEEN '{filter.start_date}' AND '{filter.end_date}'
+        """
+        if filter.production_line != 'All':
+            base_query += f" AND pl.production_line_name = '{filter.production_line}'"
+
+        base_query += ' GROUP BY i.is_recurrent'
+        base_query += ' ORDER BY total_ncs ASC'
+
+        data = self.connection.execute(base_query).fetchdf()
+        
+        # replace 1 by Yes and 0 by No
+        data['is_recurrent'] = data['is_recurrent'].replace({'1': 'Yes', '0': 'No'})
+
+        return data
+    
+    def get_defects_distribution_by_ishikawa_root_cause(self, filter: Filter) -> pd.DataFrame:
+        """
+        query to get the defects distribution by Ishikawa's root cause
+
+        Args:
+        -----
+        filter (Filter):
+            filter object
+        k (int):
+            top k 8M's root cause to return
+
+        Returns:
+        --------
+        pd.DataFrame:
+            pd.DataFrame of the defects distribution by Ishikawa's root cause
+        """
+        root_cause = ['labour', 'raw_material', 'method', 'machine', 'measure', 'env']
+        ishi_data = {}
+        for root in root_cause:
+
+            base_query = f"""SELECT i.is_{root}, SUM(f.qty_ncs) AS total_ncs
+            FROM sink_data_mart.main.internal_ncs_fact f
+                INNER JOIN sink_data_mart.main.product_dimension p
+                    ON f.prod_id_fk = p.product_id
+                INNER JOIN sink_data_mart.main.production_line_dimension pl
+                    ON p.prod_line_fk = pl.production_line_id
+                INNER JOIN sink_data_mart.main.issues_dimension i
+                    ON f.issues_fk = i.issue_id
+            WHERE f.date BETWEEN '{filter.start_date}' AND '{filter.end_date}'
+            """
+            if filter.production_line != 'All':
+                base_query += f" AND pl.production_line_name = '{filter.production_line}'"
+
+            base_query += f' GROUP BY i.is_{root}'
+            base_query += f' HAVING i.is_{root} = 1'
+
+            data = self.connection.execute(base_query).fetchdf()
+
+            # append the data to the ishi_data, if data is empty, append 0
+            if data.empty:
+                ishi_data[root] = 0
+            else:
+                ishi_data[root] = data.iloc[0, 1]
+
+        # create a dataframe
+        data = pd.DataFrame(ishi_data.items(), columns=['issue_name', 'total_ncs'])
+        
+        # sort the data by total_ncs
+        data = data.sort_values(by='total_ncs')
+
+        # calculate percentage
+        data['total_ncs'] = data['total_ncs'] / data['total_ncs'].sum() * 100
+
         return data
